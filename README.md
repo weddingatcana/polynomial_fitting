@@ -68,6 +68,29 @@ dataY_dS = modMath.mathDownSampling(dataY, 2)
 data_2D = modMatrix.matJoin(dataX_dS, dataY_dS)
 ```
 
+Another useful extra is the ability to fit data to a seperately specified array of coefficients. For many optimization routines an iterative approach will be taken to, say, minimize a cost function. After every iteration, a new set of polynomial coefficients will be generated. To evaluate those generated coefficients is quite useful. As a brief primer, assume a nth order polynomial, y(x), which can be defined by:
+
+y(x) = a_(n)\*x^(n) + a_(n-1)\*x^(n-1) + ... + a_(1)\*x^(1) + a_(0)\*x^(0)
+
+For an nth order polynomial we start counting our coefficients from zero, as shown in the above equation; therefore, when externally defining a seperate coefficient array we need to be mindful that an nth order polynomial will have (n+1) coefficients. As such, a coefficent array of three elements will model a second order polynomial, a coefficent array of twenty two elements will model a twenty first order polynomial, and so on. It's important to keep in mind that the order of elements in the coefficient array would be, following the polynomial definition above, **coeffs** = (a_(0), a_(1), ... , a_(n-1), a_(n))
+
+We'd implement this as such:
+
+```VBA
+'Define coefficient array as double
+Dim coeff#()
+
+Dimension for a third order polynomial. Technically 2D array here, defined as such for ease of use.
+ReDim coeff(1 to 4, 1 to 1)
+
+'Defining coefficients
+coeff(1,1) = 10      'a_0
+coeff(2,1) = 1       'a_1
+coeff(3,1) = 0.1     'a_2
+coeff(4,1) = 0.01    'a_3
+
+data_Fit = modOptimization.optPolyFit_seperate_coeff(data_2D, coeffs)
+```
 
 
 
