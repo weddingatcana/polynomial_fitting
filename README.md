@@ -38,7 +38,7 @@ This is to staisfy the structural requirements imposed on input arrays given by 
 ```VBA
 data_Fit = modOptimization.optPolyFit(data_2D, 5)
 ```
-The function above, ***optPolyFit*** has two inputs - the 2D data, and the order of polynomial to fit. For this example, we've chosen a fifth order polynomial. Once the function has completed, we now seek to export the calculated data, and perhaps other fields. We'll define a boolean variable, ***csvStatus***, to display true/false if the exporting was successful. We can see this in practice below:
+The function above, ***optPolyFit*** has two inputs - the 2D data, and the order of polynomial to fit. For this example, we've chosen a fifth order polynomial. Once the function has completed, we now seek to export the calculated data, ***data_Fit***, and perhaps other fields. We'll define a boolean variable, ***csvStatus***, to display true/false if the exporting was successful. We can see this in practice below:
 
 ```VBA
 'Write the various results to written filepaths
@@ -47,7 +47,6 @@ csvStatus = modText.csvWrite(data_2D, "xy.csv")
 csvStatus = modText.csvWrite(data_Fit, "order5.csv")
 ```
 
-We see that the function ***csvWrite*** takes two inputs as well - single or multidimensional data, and the filename with extension. The only extension one should use is, as you guessed, **.csv**.
-
+We see that the function ***csvWrite*** takes two inputs as well - single or multidimensional data, and the filename with extension. The only extension one should use is, as you guessed, **.csv**. An optional third argument is also provided by ***csvWrite*** which allows one to provide a directory path; however, by default one is provided for export to the desktop. 
 
 ## Extra Features
