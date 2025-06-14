@@ -50,3 +50,47 @@ csvStatus = modText.csvWrite(data_Fit, "order5.csv")
 We see that the function ***csvWrite*** takes two inputs as well - single or multidimensional data, and the filename with extension. The only extension one should use is, as you guessed, **.csv**. An optional third argument is also provided by ***csvWrite*** which allows one to provide a directory path; however, by default one is provided for export to the desktop. 
 
 ## Extra Features
+
+For very large data sets, it may be nice to reduce the computational load on the machine and increase speed of calculation at the loss of some accuracy of the fit. To do so, we have a function, ***mathDownSampling***, that will take 2D data - (x,y) and starting from the very first data point inclusive, take every nth data point.
+
+So, for example, is we had an array **points** = (1,2,3,4,5,6,7,8,9,10) and we wanted to take every other data point, n = 2, then our downsampled array **points_downsampled** = (1,3,5,7,9). Using ***csvMatrix*** from the previous section, we can pull the same data as before, and now downsampled, as:
+
+```VBA
+'Separate x and y arrays from larger csvMatrix, just as before
+dataX = modMatrix.matVec(csvMatrix, 1)
+dataY = modMatrix.matVec(csvMatrix, 3)
+
+'Perform downsampling, let's say every other point
+dataX_dS = modMath.mathDownSampling(dataX, 2)
+dataY_dS = modMath.mathDownSampling(dataY, 2)
+
+'Recombining again
+data_2D = modMatrix.matJoin(dataX_dS, dataY_dS)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
