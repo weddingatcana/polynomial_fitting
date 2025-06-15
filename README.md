@@ -51,6 +51,8 @@ We see that the function ***csvWrite*** takes two inputs as well - single or mul
 
 ## Extra Features
 
+### Downsampling
+
 For very large data sets, it may be nice to reduce the computational load on the machine and increase speed of calculation at the loss of some accuracy of the fit. To do so, we have a function, ***mathDownSampling***, that will take 2D data - (x,y) and starting from the very first data point inclusive, take every nth data point.
 
 So, for example, is we had an array **points** = (1,2,3,4,5,6,7,8,9,10) and we wanted to take every other data point, n = 2, then our downsampled array **points_downsampled** = (1,3,5,7,9). Using ***csvMatrix*** from the previous section, we can pull the same data as before, and now downsampled, as:
@@ -67,6 +69,8 @@ dataY_dS = modMath.mathDownSampling(dataY, 2)
 'Recombining again
 data_2D = modMatrix.matJoin(dataX_dS, dataY_dS)
 ```
+
+### Fitting with External Coefficient Array
 
 Another useful extra is the ability to fit data to a seperately specified array of coefficients. For many optimization routines an iterative approach will be taken to, say, minimize a cost function. After every iteration, a new set of polynomial coefficients will be generated. To evaluate those generated coefficients is quite useful. As a brief primer, assume a nth order polynomial, y(x), which can be defined by:
 
@@ -99,6 +103,8 @@ data_Fit = modOptimization.optPolyFit_seperate_coeff(dataX, coeffs)
 csvStatus = modText.csvWrite(data_coeff, "order3_separate_coeff.csv")
 ```
 
+### Finding R^2
+
 Lastly, we'll want to find the coefficient of determination for our fit. So, to do so we need to find the average of our observational data, y, the residual sum of squares and total sum of squares. We'd program this as such, starting from ***csvMatrix*** within the **Getting Started** section:
 
 ```VBA
@@ -112,7 +118,7 @@ dataY = modMatrix.matVec(csvMatrix, 3)
 'Combine separate x and y arrays for use in optPolyFit which takes 2D (x,y) array
 data_2D = modMatrix.matJoin(dataX, dataY)
 
-'Generate n-order polynomial, columnar formatting assumed (c1 = x, c2 = y)
+'Generate fifth order polynomial
 data_Fit = modOptimization.optPolyFit(data_2D, 5)
 
 'Isolate the fitted polynomial y data
@@ -133,3 +139,7 @@ SSR = modOptimization.optSSR(dataY, dataY_Fit)
 'Use SSR & SST to find R2
 R2 = modOptimization.optR2(SSR, SST)
 ```
+
+## Notes
+
+I'll provide some dummy test data to show explicit formatting and to have fun tinkering around with. I'll keep them in the **.csv** folder in the main branch.
