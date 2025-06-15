@@ -142,4 +142,4 @@ R2 = modOptimization.optR2(SSR, SST)
 
 ## Notes
 
-I'll provide some dummy test data to show explicit formatting and to have fun tinkering around with. I'll keep them in the **.csv** folder in the main branch.
+I'll provide some dummy test data to show explicit formatting and to have fun tinkering around with. I'll keep them in the **data** folder in the main branch.
