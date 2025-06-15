@@ -78,24 +78,51 @@ We'd implement this as such:
 
 ```VBA
 'Define coefficient array as double precision
-Dim coeff#()
+Dim coeffs#()
 
 'Dimension for a third order polynomial, technically 2D array here, defined as such for ease of use.
-ReDim coeff(1 to 4, 1 to 1)
+ReDim coeffs(1 to 4, 1 to 1)
 
 'Defining random coefficients
-coeff(1,1) = 10      'a_0
-coeff(2,1) = 1       'a_1
-coeff(3,1) = 0.1     'a_2
-coeff(4,1) = 0.01    'a_3
+coeffs(1, 1) = 10      'a_0
+coeffs(2, 1) = 1       'a_1
+coeffs(3, 1) = 0.1     'a_2
+coeffs(4, 1) = 0.01    'a_3
+
+'We only want x data, y is being generated from coefficients. Technically also 2D.
+dataX = modMatrix.matVec(data_2D, 1)
 
 'Generate third order polynomial
-data_Fit = modOptimization.optPolyFit_seperate_coeff(data_2D, coeffs)
+data_Fit = modOptimization.optPolyFit_seperate_coeff(dataX, coeffs)
 
 'Write results out to filepath
 csvStatus = modText.csvWrite(data_coeff, "order3_separate_coeff.csv")
 ```
 
+Lastly, we'll want to find the coefficient of determination for our fit. So, to do so we need to find the average of our observational data, y, the residual sum of squares and total sum of squares. We'd program this as such:
+
+```VBA
+'Define coefficient array as double precision
+Dim coeffs#()
+
+'Dimension for a third order polynomial, technically 2D array here, defined as such for ease of use.
+ReDim coeffs(1 to 4, 1 to 1)
+
+'Defining random coefficients
+coeffs(1, 1) = 10      'a_0
+coeffs(2, 1) = 1       'a_1
+coeffs(3, 1) = 0.1     'a_2
+coeffs(4, 1) = 0.01    'a_3
+
+'We only want x data, y is being generated from coefficients. Technically also 2D.
+dataX = modMatrix.matVec(data_2D, 1)
+
+'Generate third order polynomial
+data_Fit = modOptimization.optPolyFit_seperate_coeff(dataX, coeffs)
+
+'Write results out to filepath
+csvStatus = modText.csvWrite(data_coeff, "order3_separate_coeff.csv")
+```
 
 
 
