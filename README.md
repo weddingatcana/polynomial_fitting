@@ -77,19 +77,23 @@ For an nth order polynomial we start counting our coefficients from zero, as sho
 We'd implement this as such:
 
 ```VBA
-'Define coefficient array as double
+'Define coefficient array as double precision
 Dim coeff#()
 
-Dimension for a third order polynomial. Technically 2D array here, defined as such for ease of use.
+'Dimension for a third order polynomial, technically 2D array here, defined as such for ease of use.
 ReDim coeff(1 to 4, 1 to 1)
 
-'Defining coefficients
+'Defining random coefficients
 coeff(1,1) = 10      'a_0
 coeff(2,1) = 1       'a_1
 coeff(3,1) = 0.1     'a_2
 coeff(4,1) = 0.01    'a_3
 
+'Generate third order polynomial
 data_Fit = modOptimization.optPolyFit_seperate_coeff(data_2D, coeffs)
+
+'Write results out to filepath
+csvStatus = modText.csvWrite(data_coeff, "order3_separate_coeff.csv")
 ```
 
 
