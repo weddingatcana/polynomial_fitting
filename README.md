@@ -99,52 +99,37 @@ data_Fit = modOptimization.optPolyFit_seperate_coeff(dataX, coeffs)
 csvStatus = modText.csvWrite(data_coeff, "order3_separate_coeff.csv")
 ```
 
-Lastly, we'll want to find the coefficient of determination for our fit. So, to do so we need to find the average of our observational data, y, the residual sum of squares and total sum of squares. We'd program this as such:
+Lastly, we'll want to find the coefficient of determination for our fit. So, to do so we need to find the average of our observational data, y, the residual sum of squares and total sum of squares. We'd program this as such, starting from ***csvMatrix*** within the **Getting Started** section:
 
 ```VBA
-'Define coefficient array as double precision
-Dim coeffs#()
+'Pull data from csv file into array, no assumption of columnar formatting
+csvMatrix = modText.csvParse(csvFilepath)
 
-'Dimension for a third order polynomial, technically 2D array here, defined as such for ease of use.
-ReDim coeffs(1 to 4, 1 to 1)
+'Separate x and y arrays from larger csvMatrix, if needed
+dataX = modMatrix.matVec(csvMatrix, 1)
+dataY = modMatrix.matVec(csvMatrix, 3)
 
-'Defining random coefficients
-coeffs(1, 1) = 10      'a_0
-coeffs(2, 1) = 1       'a_1
-coeffs(3, 1) = 0.1     'a_2
-coeffs(4, 1) = 0.01    'a_3
+'Combine separate x and y arrays for use in optPolyFit which takes 2D (x,y) array
+data_2D = modMatrix.matJoin(dataX, dataY)
 
-'We only want x data, y is being generated from coefficients. Technically also 2D.
-dataX = modMatrix.matVec(data_2D, 1)
+'Generate n-order polynomial, columnar formatting assumed (c1 = x, c2 = y)
+data_Fit = modOptimization.optPolyFit(data_2D, 5)
 
-'Generate third order polynomial
-data_Fit = modOptimization.optPolyFit_seperate_coeff(dataX, coeffs)
+'Isolate the fitted polynomial y data
+dataY_Fit = modMatrix.matVec(data_Fit, 2)
 
-'Write results out to filepath
-csvStatus = modText.csvWrite(data_coeff, "order3_separate_coeff.csv")
+'Dimension our variables to use when calculating
+Dim avg#, SST#, SSR#, R2#
+
+'Find average
+avg = modOptimization.optAvg(dataY)
+
+'Use average to find SST
+SST = modOptimization.optSST(dataY, avg)
+
+'Find SSR
+SSR = modOptimization.optSSR(dataY, dataY_Fit)
+
+'Use SSR & SST to find R2
+R2 = modOptimization.optR2(SSR, SST)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
