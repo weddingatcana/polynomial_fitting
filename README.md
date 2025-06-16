@@ -1,6 +1,6 @@
 # Polynomial Fitting
 
-This is just a simple tool to help fit data to a polynomial of your choosing. It consistes of five modules, four with the **mod** prefix to denote separate libraries of functions and the fifth with the **prg** prefix to denote the main program where we will generate the polynomial fits.
+This is just a simple tool to help fit data to a polynomial of your choosing. It consists of five modules, four with the **mod** prefix to denote separate libraries of functions and the fifth with the **prg** prefix to denote the main program where we will generate the polynomial fits.
 
 ## Getting Started
 
