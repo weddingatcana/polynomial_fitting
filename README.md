@@ -38,6 +38,7 @@ This is to staisfy the structural requirements imposed on input arrays given by 
 ```VBA
 data_Fit = modOptimization.optPolyFit(data_2D, 5)
 ```
+
 The function above, ***optPolyFit*** has two inputs - the 2D data, and the order of polynomial to fit. For this example, we've chosen a fifth order polynomial. Once the function has completed, we now seek to export the calculated data, ***data_Fit***, and perhaps other fields. We'll define a boolean variable, ***csvStatus***, to display true/false if the exporting was successful. We can see this in practice below:
 
 ```VBA
