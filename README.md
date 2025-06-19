@@ -104,7 +104,7 @@ data_Fit = modOptimization.optPolyFit_seperate_coeff(dataX, coeffs)
 csvStatus = modText.csvWrite(data_coeff, "order3_separate_coeff.csv")
 ```
 
-### Finding R^2
+### Finding $R^2$
 
 Lastly, we'll want to find the coefficient of determination for our fit. So, to do so we need to find the average of our observational data, y, the residual sum of squares and total sum of squares. We'd program this as such, starting from ***csvMatrix*** within the **Getting Started** section:
 
